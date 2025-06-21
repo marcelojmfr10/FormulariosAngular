@@ -2,112 +2,125 @@
 <hr>
 
 <div class="row">
-    <div class="col">
+  <div class="col">
 
-        <form autocomplete="off">
+    <form autocomplete="off" [formGroup]="myForm" (ngSubmit)="onSubmit()">
 
-            <!-- Nombre -->
-            <div class="row mb-3">
-                <label class="col-sm-3 col-form-label">Nombre y apellido</label>
-                <div class="col-sm-9">
-                    <input type="text"
-                           class="form-control"
-                           placeholder="Nombre del usuario">
+      <!-- Nombre -->
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Nombre y apellido</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" placeholder="Nombre y apellido" formControlName="name">
 
-                    <span class="form-text text-danger">
-                        Debe de ser en formato de nombre y apellido
-                    </span>
-                </div>
-            </div>
+          @if (formUtils.isValidField(myForm, 'name')) {
+          <span class="form-text text-danger">
+            <!-- Debe de ser de 3 letras -->
+             El campo debe de tener nombre y apellido
+            <!-- {{formUtils.getFieldError(myForm,'name')}} -->
+          </span>
+          }
+        </div>
+      </div>
 
-            <!-- Email -->
-            <div class="row mb-3">
-                <label class="col-sm-3 col-form-label">Email</label>
-                <div class="col-sm-9">
-                    <input type="email"
-                           class="form-control"
-                           placeholder="Email del usuario">
-                    <span class="form-text text-danger">
-                        mensaje de error del email
-                    </span>
-                </div>
-            </div>
+      <!-- Email -->
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Email</label>
+        <div class="col-sm-9">
+          <input type="email" class="form-control" placeholder="Email del usuario" formControlName="email">
+          @if (formUtils.isValidField(myForm, 'email')) {
+          <span class="form-text text-danger">
+            <!-- El valor ingresado no parece un correo electrónico -->
+            {{formUtils.getFieldError(myForm,'email')}}
+          </span>
+          }
+        </div>
+      </div>
 
-            <!-- Username -->
-            <div class="row mb-3">
-                <label class="col-sm-3 col-form-label">Username</label>
-                <div class="col-sm-9">
-                    <input type="text"
-                           class="form-control"
-                           placeholder="Nombre código del usuario">
-                    <span class="form-text text-danger">
-                         El username no puede ser Strider
-                    </span>
-                </div>
-            </div>
+      <!-- Username -->
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Username</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" placeholder="Nombre código del usuario" formControlName="username">
+          @if (formUtils.isValidField(myForm, 'username')) {
+          <span class="form-text text-danger">
+            <!-- Debe de ser de 3 letras -->
+            {{formUtils.getFieldError(myForm,'username')}}
+          </span>
+          }
+        </div>
+      </div>
 
-            <!-- Password -->
-            <div class="row mb-3">
-                <label class="col-sm-3 col-form-label">Password</label>
-                <div class="col-sm-9">
-                    <input type="password"
-                           class="form-control"
-                           placeholder="Password de su cuenta">
+      <!-- Password -->
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Password</label>
+        <div class="col-sm-9">
+          <input type="password" class="form-control" placeholder="Password de su cuenta" formControlName="password">
 
-                    <span class="form-text text-danger">
-                         La contraseña debe de ser mayor de 6 caracteres.
-                    </span>
-                </div>
-            </div>
+          @if (formUtils.isValidField(myForm, 'password')) {
+          <span class="form-text text-danger">
+            <!-- Debe de ser de 3 letras -->
+            {{formUtils.getFieldError(myForm,'password')}}
+          </span>
+          }
+        </div>
+      </div>
 
-            <!-- Password2 -->
-            <div class="row mb-3">
-                <label class="col-sm-3 col-form-label">Confirmar</label>
-                <div class="col-sm-9">
-                    <input type="password"
-                           class="form-control"
-                           placeholder="Confirmar la contraseña">
+      <!-- Password2 -->
+      <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Confirmar</label>
+        <div class="col-sm-9">
+          <input type="password" class="form-control" placeholder="Confirmar la contraseña" formControlName="password2">
 
-                    <span class="form-text text-danger">
-                         Las contraseñas deben de ser iguales
-                    </span>
-                </div>
-            </div>
+          @if (formUtils.isValidField(myForm, 'password2')) {
+          <span class="form-text text-danger">
+            <!-- Debe de ser de 3 letras -->
+            {{formUtils.getFieldError(myForm,'password2')}}
+          </span>
+          }
+        </div>
+      </div>
 
+      <div class="row">
+        <div class="col">
 
-            <div class="row">
-                <div class="col">
-                    <button class="btn btn-primary float-end"
-                            type="submit">
-                        Crear
-                    </button>
-                </div>
-            </div>
+          @if (myForm.errors && myForm.touched) {
+            <span class="text-danger">
+              Las contraseñas no son iguales
+            </span>
+          }
 
+          <button class="btn btn-primary float-end" type="submit">
+            Crear
+          </button>
+        </div>
+      </div>
 
-        </form>
-    </div>
+    </form>
+  </div>
 </div>
 
 
-<h2>Form Valid: </h2>
-<h2>Form Status: </h2>
-<h2>Form Pending: </h2>
+<h2>Form Valid: {{myForm.valid}} </h2>
+<h2>Form Status: {{myForm.status}} </h2>
+<h2>Form Pending: {{myForm.pending}} </h2>
 <h2>Form errors</h2>
-<pre>{{ 'formulario' | json }}</pre>
+<pre>{{ myForm.errors | json }}</pre>
+
+<h2>Value</h2>
+<pre>{{ myForm.value | json }}</pre>
 
 <h5>Nombre</h5>
-<pre>{{ 'formulario' | json }}</pre>
+<pre>{{ myForm.controls['name'].errors | json }}</pre>
 
 <h5>Email</h5>
-<pre>{{ 'formulario' | json }}</pre>
+<pre>{{ myForm.controls['email'].errors | json }}</pre>
 
 <h5>Username</h5>
-<pre>{{ 'formulario' | json }}</pre>
+<pre>{{ myForm.controls['username'].errors | json }}</pre>
 
 
 <h5>Password</h5>
-<pre>{{ 'formulario' | json }}</pre>
+<pre>{{ myForm.controls['password'].errors | json }}</pre>
 
 <h5>Confirmar</h5>
-<pre>{{ 'formulario' | json }}</pre>
+<pre>{{ myForm.controls['password2'].errors | json }}</pre>
