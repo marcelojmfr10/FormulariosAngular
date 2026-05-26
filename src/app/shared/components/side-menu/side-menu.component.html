@@ -1,12 +1,16 @@
 <h2>Páginas</h2>
-<hr>
+<hr />
 
 <h3 class="mt-3">Reactive</h3>
 
 <ul class="list-group">
   @for (item of reactiveMenu; track item.title) {
-    <li class="list-group-item" [routerLink]="item.route" routerLinkActive="active">
-      {{item.title}}
+    <li
+      class="list-group-item"
+      [routerLink]="item.route"
+      routerLinkActive="active"
+    >
+      {{ item.title }}
     </li>
   }
 </ul>
@@ -15,8 +19,12 @@
 
 <ul class="list-group">
   @for (item of authMenu; track item.title) {
-    <li class="list-group-item" [routerLink]="item.route" routerLinkActive="active">
-      {{item.title}}
+    <li
+      class="list-group-item"
+      [routerLink]="item.route"
+      routerLinkActive="active"
+    >
+      {{ item.title }}
     </li>
   }
 </ul>
@@ -25,8 +33,12 @@
 
 <ul class="list-group">
   @for (item of countryMenu; track item.title) {
-    <li class="list-group-item" [routerLink]="item.route" routerLinkActive="active">
-      {{item.title}}
+    <li
+      class="list-group-item"
+      [routerLink]="item.route"
+      routerLinkActive="active"
+    >
+      {{ item.title }}
     </li>
   }
 </ul>

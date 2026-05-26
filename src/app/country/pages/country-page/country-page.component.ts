@@ -11,7 +11,6 @@ import { filter, switchMap, tap } from 'rxjs';
   templateUrl: './country-page.component.html',
 })
 export class CountryPageComponent {
-
   fb = inject(FormBuilder);
   countryService = inject(CountryService);
 
@@ -33,19 +32,20 @@ export class CountryPageComponent {
     onCleanup(() => {
       regionSubscription.unsubscribe();
       countrySubscription.unsubscribe();
-    })
+    });
   });
 
   onRegionChanged() {
-    return this.myForm.get('region')!.valueChanges
-      .pipe(
+    return this.myForm
+      .get('region')!
+      .valueChanges.pipe(
         tap(() => this.myForm.get('country')!.setValue('')),
         tap(() => this.myForm.get('border')!.setValue('')),
         tap(() => {
           this.borders.set([]);
           this.countriesByRegion.set([]);
         }),
-        switchMap(region => this.countryService.getContriesByRegion(region!))
+        switchMap((region) => this.countryService.getContriesByRegion(region!)),
       )
       .subscribe((countries) => {
         this.countriesByRegion.set(countries);
@@ -53,22 +53,26 @@ export class CountryPageComponent {
   }
 
   onCountryChanged() {
-    return this.myForm.get('country')!.valueChanges
-      .pipe(
+    return this.myForm
+      .get('country')!
+      .valueChanges.pipe(
         tap(() => this.myForm.get('border')!.setValue('')),
         tap(() => this.borders.set([])),
-        filter(value => value!.length > 0),
-        switchMap(alphaCode => this.countryService.getCountryByAlphaCode(alphaCode ?? '')),
-        switchMap(country => this.countryService.getCountryNamesByCodeArray(country.borders))
+        filter((value) => value!.length > 0),
+        switchMap((alphaCode) =>
+          this.countryService.getCountryByAlphaCode(alphaCode ?? ''),
+        ),
+        switchMap((country) =>
+          this.countryService.getCountryNamesByCodeArray(country.borders),
+        ),
       )
       .subscribe((borders) => {
         this.borders.set(borders);
-      })
+      });
   }
 
   // la suscripción no se limpia, a menos que se haga en alguna pieza del ciclo de angular
   // formRegionChanged = this.myForm.get('region')!.valueChanges.subscribe(value => {
   //   console.log(value);
   // });
-
 }

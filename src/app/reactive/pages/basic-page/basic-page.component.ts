@@ -1,6 +1,12 @@
 import { JsonPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { FormUtils } from '../../../utils/form-utils';
 
 @Component({
@@ -9,7 +15,6 @@ import { FormUtils } from '../../../utils/form-utils';
   templateUrl: './basic-page.component.html',
 })
 export class BasicPageComponent {
-
   // formBuilder
   private fb = inject(FormBuilder);
   formUtils = FormUtils;
@@ -60,7 +65,5 @@ export class BasicPageComponent {
       price: 0,
       inStorage: 0,
     });
-
   }
-
 }

@@ -1,6 +1,13 @@
 import { JsonPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { FormUtils } from '../../../utils/form-utils';
 
 @Component({
@@ -9,16 +16,18 @@ import { FormUtils } from '../../../utils/form-utils';
   templateUrl: './dynamic-page.component.html',
 })
 export class DynamicPageComponent {
-
   private fb = inject(FormBuilder);
   formUtils = FormUtils;
 
   myForm: FormGroup = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
-    favoriteGames: this.fb.array([
-      ['Metal gear', Validators.required],
-      ['warzone', Validators.required],
-    ], Validators.minLength(3)),
+    favoriteGames: this.fb.array(
+      [
+        ['Metal gear', Validators.required],
+        ['warzone', Validators.required],
+      ],
+      Validators.minLength(3),
+    ),
   });
 
   // newFavorite = this.fb.control([]);
@@ -28,8 +37,8 @@ export class DynamicPageComponent {
     return this.myForm.get('favoriteGames') as FormArray;
   }
 
-  onAddToFavorites(){
-    if(this.newFavorite.invalid) return;
+  onAddToFavorites() {
+    if (this.newFavorite.invalid) return;
 
     const newGame = this.newFavorite.value;
 
@@ -37,12 +46,11 @@ export class DynamicPageComponent {
     this.newFavorite.reset();
   }
 
-  onDeleteFavorite(index: number){
+  onDeleteFavorite(index: number) {
     this.favoriteGames.removeAt(index);
   }
 
-  onSubmit(){
+  onSubmit() {
     this.myForm.markAllAsTouched();
   }
-
 }
